@@ -216,6 +216,20 @@
             background: white;
         }
 
+        /* Custom Date Selects */
+        .date-select-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .date-select-group select {
+            flex: 1;
+            padding: 12px 8px;
+            /* Tighter padding for 3 columns */
+            min-width: 0;
+            /* Allow shrinking */
+        }
+
         /* Radio Cards */
         .radio-group {
             display: flex;
@@ -441,6 +455,73 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* Welcome Screen Enhancements */
+        .info-card {
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px solid var(--primary-light);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instruction-list {
+            text-align: left;
+            margin: 1.5rem 0;
+            padding-left: 1.25rem;
+        }
+
+        .instruction-list li {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            position: relative;
+            list-style: none;
+        }
+
+        .instruction-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .motivation-text {
+            font-style: italic;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hero-title h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-title h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        .hero-title p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-light);
+        }
     </style>
 </head>
 
@@ -461,20 +542,53 @@
 
             <!-- STEP 0: WELCOME -->
             <div class="step active" id="step-0">
-                <div class="welcome-content">
-                    <div class="logo-placeholder">MI</div>
-                    <h1>PENERIMAAN PESERTA DIDIK BARU</h1>
-                    <h2 style="color:var(--primary-light); margin-bottom: 0.5rem;">MI ISLAMADINA</h2>
-                    <p style="margin-bottom: 2rem; font-weight: 500;">TAHUN AJARAN 2026–2027</p>
+                <div class="form-content">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div class="hero-title">
+                            <h1>PENERIMAAN PESERTA DIDIK BARU (PPDB)</h1>
+                            <h2>MI ISLAMADINA</h2>
+                            <p>TAHUN AJARAN 2026–2027</p>
+                        </div>
+                        <p style="margin-top: 1rem; color: var(--text-main); font-weight: 500;">
+                            Selamat datang di sistem pendaftaran online MI Islamadina. <br>
+                            Silakan lengkapi formulir pendaftaran secara bertahap dan teliti.
+                        </p>
+                    </div>
 
-                    <p class="subtitle">
-                        Mohon mempersiapkan data diri (Kartu Keluarga & Akta Kelahiran) sebelum mengisi formulir ini.
-                        Pastikan data diisi dengan benar.
+                    <div class="info-card">
+                        <h3><span>⚠️</span> Perhatian!</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-main); line-height: 1.5;">
+                            Mohon menyiapkan dokumen identitas resmi (Kartu Keluarga dan Akta Kelahiran) sebelum mengisi
+                            formulir ini. Pastikan seluruh data diisi dengan benar, lengkap, dan sesuai dengan dokumen
+                            asli, karena data tersebut akan digunakan dalam sistem pendidikan sebagai dasar penulisan
+                            identitas pada ijazah dan rapor.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <h4 style="font-size: 0.95rem; color: var(--primary);">Petunjuk Pengisian</h4>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">Sebelum memulai pendaftaran, harap diperhatikan:
+                        </p>
+                        <ul class="instruction-list">
+                            <li>Pengisian dilakukan satu kali untuk setiap calon peserta didik.</li>
+                            <li>Pastikan koneksi internet stabil selama proses pengisian.</li>
+                            <li>Seluruh kolom wajib diisi dengan data yang valid dan sebenarnya.</li>
+                            <li>Setelah data berhasil dikirim, perubahan hanya dapat dilakukan melalui panitia PPDB.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p class="motivation-text">
+                        "Kami mengucapkan terima kasih atas kepercayaan Bapak/Ibu kepada MI Islamadina sebagai pilihan
+                        pendidikan putra-putri Anda. Semoga proses pendaftaran ini berjalan lancar dan menjadi langkah
+                        awal menuju pendidikan yang berkualitas dan berakhlak mulia."
                     </p>
 
-                    <button type="button" class="btn btn-primary" onclick="nextStep()" style="width: 100%;">
-                        MULAI DAFTAR ➜
-                    </button>
+                    <div style="margin-top: 2rem; padding-bottom: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="nextStep()" style="width: 100%;">
+                            MULAI PENDAFTARAN ➜
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -524,7 +638,19 @@
 
                     <div class="form-group">
                         <label>Tanggal Lahir</label>
-                        <input type="date" name="tgl_lahir" required>
+                        <div class="date-select-group" data-date-field="tgl_lahir">
+                            <select class="sel-tgl" required>
+                                <option value="">Tgl</option>
+                            </select>
+                            <select class="sel-bln" required>
+                                <option value="">Bulan</option>
+                            </select>
+                            <select class="sel-thn" required>
+                                <option value="">Tahun</option>
+                            </select>
+                            <input type="hidden" name="tgl_lahir" required>
+                        </div>
+                        <span class="error-msg">Pilih tanggal lengkap</span>
                     </div>
 
                     <div class="form-group">
@@ -711,7 +837,18 @@
 
                     <div class="form-group">
                         <label>Tanggal Lahir</label>
-                        <input type="date" name="tgl_lahir_ayah" data-required-ortu="true">
+                        <div class="date-select-group" data-date-field="tgl_lahir_ayah">
+                            <select class="sel-tgl" data-required-ortu="true">
+                                <option value="">Tgl</option>
+                            </select>
+                            <select class="sel-bln" data-required-ortu="true">
+                                <option value="">Bulan</option>
+                            </select>
+                            <select class="sel-thn" data-required-ortu="true">
+                                <option value="">Tahun</option>
+                            </select>
+                            <input type="hidden" name="tgl_lahir_ayah" data-required-ortu="true">
+                        </div>
                     </div>
                 </div>
                 <div class="btn-container">
@@ -744,12 +881,24 @@
                         <label>Pekerjaan</label>
                         <select name="pekerjaan_ayah" data-required-ortu="true">
                             <option value="">Pilih...</option>
+                            <option value="TIDAK_BEKERJA">Tidak Bekerja</option>
+                            <option value="PENSIUNAN">Pensiunan</option>
                             <option value="PNS">PNS</option>
-                            <option value="TNI/POLRI">TNI / POLRI</option>
-                            <option value="SWASTA">Karyawan Swasta</option>
-                            <option value="PETANI">Petani / Peternak</option>
-                            <option value="PEDAGANG">Pedagang / Wiraswasta</option>
-                            <option value="BURUH">Buruh</option>
+                            <option value="PPPK">PPPK</option>
+                            <option value="TNI_POLRI">TNI / Polisi</option>
+                            <option value="GURU_DOSEN">Guru / Dosen</option>
+                            <option value="SWASTA">Pegawai Swasta</option>
+                            <option value="WIRASWASTA">Wiraswasta</option>
+                            <option value="HUKUM">Pengacara / Jaksa / Hakim / Notaris</option>
+                            <option value="SENIMAN">Seniman / Pelukis / Artis / Sejenis</option>
+                            <option value="MEDIS">Dokter / Bidan / Perawat</option>
+                            <option value="PILOT_PRAMUGARA">Pilot / Pramugara</option>
+                            <option value="PEDAGANG">Pedagang</option>
+                            <option value="PETANI_PETERNAK">Petani / Peternak</option>
+                            <option value="NELAYAN">Nelayan</option>
+                            <option value="BURUH">Buruh (Tani / Pabrik / Bangunan)</option>
+                            <option value="TRANSPORTASI">Sopir / Masinis / Kondektur</option>
+                            <option value="POLITIKUS">Politikus</option>
                             <option value="LAINNYA">Lainnya</option>
                         </select>
                     </div>
@@ -758,11 +907,17 @@
                         <label>Penghasilan per Bulan</label>
                         <select name="penghasilan_ayah" data-required-ortu="true">
                             <option value="">Pilih...</option>
-                            <option value="<1jt">Kurang dari 1 Juta</option>
-                            <option value="1-3jt">1 - 3 Juta</option>
-                            <option value="3-5jt">3 - 5 Juta</option>
-                            <option value="5-10jt">5 - 10 Juta</option>
-                            <option value=">10jt">Lebih dari 10 Juta</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Dibawah 800.000">Dibawah 800.000</option>
+                            <option value="800.001 - 1.200.000">800.001 - 1.200.000</option>
+                            <option value="1.200.001 - 1.800.000">1.200.001 - 1.800.000</option>
+                            <option value="1.800.001 - 2.500.000">1.800.001 - 2.500.000</option>
+                            <option value="2.500.001 - 3.500.000">2.500.001 - 3.500.000</option>
+                            <option value="3.500.001 - 4.800.000">3.500.001 - 4.800.000</option>
+                            <option value="4.800.001 - 6.500.000">4.800.001 - 6.500.000</option>
+                            <option value="6.500.001 - 10.000.000">6.500.001 - 10.000.000</option>
+                            <option value="10.000.001 - 20.000.000">10.000.001 - 20.000.000</option>
+                            <option value="Diatas 20.000.001">Diatas 20.000.001</option>
                         </select>
                     </div>
 
@@ -813,7 +968,18 @@
 
                     <div class="form-group">
                         <label>Tanggal Lahir</label>
-                        <input type="date" name="tgl_lahir_ibu" data-required-ortu="true">
+                        <div class="date-select-group" data-date-field="tgl_lahir_ibu">
+                            <select class="sel-tgl" data-required-ortu="true">
+                                <option value="">Tgl</option>
+                            </select>
+                            <select class="sel-bln" data-required-ortu="true">
+                                <option value="">Bulan</option>
+                            </select>
+                            <select class="sel-thn" data-required-ortu="true">
+                                <option value="">Tahun</option>
+                            </select>
+                            <input type="hidden" name="tgl_lahir_ibu" data-required-ortu="true">
+                        </div>
                     </div>
                 </div>
                 <div class="btn-container">
@@ -846,11 +1012,24 @@
                         <select name="pekerjaan_ibu" data-required-ortu="true">
                             <option value="">Pilih...</option>
                             <option value="IRT">Ibu Rumah Tangga</option>
+                            <option value="TIDAK_BEKERJA">Tidak Bekerja</option>
+                            <option value="PENSIUNAN">Pensiunan</option>
                             <option value="PNS">PNS</option>
-                            <option value="TNI/POLRI">TNI / POLRI</option>
-                            <option value="SWASTA">Karyawan Swasta</option>
-                            <option value="PETANI">Petani / Peternak</option>
-                            <option value="PEDAGANG">Pedagang / Wiraswasta</option>
+                            <option value="PPPK">PPPK</option>
+                            <option value="TNI_POLRI">TNI / Polisi</option>
+                            <option value="GURU_DOSEN">Guru / Dosen</option>
+                            <option value="SWASTA">Pegawai Swasta</option>
+                            <option value="WIRASWASTA">Wiraswasta</option>
+                            <option value="HUKUM">Pengacara / Jaksa / Hakim / Notaris</option>
+                            <option value="SENIMAN">Seniman / Pelukis / Artis / Sejenis</option>
+                            <option value="MEDIS">Dokter / Bidan / Perawat</option>
+                            <option value="PILOT_PRAMUGARA">Pilot / Pramugara</option>
+                            <option value="PEDAGANG">Pedagang</option>
+                            <option value="PETANI_PETERNAK">Petani / Peternak</option>
+                            <option value="NELAYAN">Nelayan</option>
+                            <option value="BURUH">Buruh (Tani / Pabrik / Bangunan)</option>
+                            <option value="TRANSPORTASI">Sopir / Masinis / Kondektur</option>
+                            <option value="POLITIKUS">Politikus</option>
                             <option value="LAINNYA">Lainnya</option>
                         </select>
                     </div>
@@ -859,11 +1038,17 @@
                         <label>Penghasilan per Bulan</label>
                         <select name="penghasilan_ibu" data-required-ortu="true">
                             <option value="">Pilih...</option>
-                            <option value="TIDAK_ADA">Tidak Ada</option>
-                            <option value="<1jt">Kurang dari 1 Juta</option>
-                            <option value="1-3jt">1 - 3 Juta</option>
-                            <option value="3-5jt">3 - 5 Juta</option>
-                            <option value=">5jt">Lebih dari 5 Juta</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Dibawah 800.000">Dibawah 800.000</option>
+                            <option value="800.001 - 1.200.000">800.001 - 1.200.000</option>
+                            <option value="1.200.001 - 1.800.000">1.200.001 - 1.800.000</option>
+                            <option value="1.800.001 - 2.500.000">1.800.001 - 2.500.000</option>
+                            <option value="2.500.001 - 3.500.000">2.500.001 - 3.500.000</option>
+                            <option value="3.500.001 - 4.800.000">3.500.001 - 4.800.000</option>
+                            <option value="4.800.001 - 6.500.000">4.800.001 - 6.500.000</option>
+                            <option value="6.500.001 - 10.000.000">6.500.001 - 10.000.000</option>
+                            <option value="10.000.001 - 20.000.000">10.000.001 - 20.000.000</option>
+                            <option value="Diatas 20.000.001">Diatas 20.000.001</option>
                         </select>
                     </div>
 
@@ -911,7 +1096,18 @@
 
                     <div class="form-group">
                         <label>Tanggal Lahir</label>
-                        <input type="date" name="tgl_lahir_wali" data-required-wali="true">
+                        <div class="date-select-group" data-date-field="tgl_lahir_wali">
+                            <select class="sel-tgl" data-required-wali="true">
+                                <option value="">Tgl</option>
+                            </select>
+                            <select class="sel-bln" data-required-wali="true">
+                                <option value="">Bulan</option>
+                            </select>
+                            <select class="sel-thn" data-required-wali="true">
+                                <option value="">Tahun</option>
+                            </select>
+                            <input type="hidden" name="tgl_lahir_wali" data-required-wali="true">
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -933,12 +1129,24 @@
                         <label>Pekerjaan</label>
                         <select name="pekerjaan_wali" data-required-wali="true">
                             <option value="">Pilih...</option>
+                            <option value="TIDAK_BEKERJA">Tidak Bekerja</option>
+                            <option value="PENSIUNAN">Pensiunan</option>
                             <option value="PNS">PNS</option>
-                            <option value="TNI/POLRI">TNI / POLRI</option>
-                            <option value="SWASTA">Karyawan Swasta</option>
-                            <option value="PETANI">Petani / Peternak</option>
-                            <option value="PEDAGANG">Pedagang / Wiraswasta</option>
-                            <option value="BURUH">Buruh</option>
+                            <option value="PPPK">PPPK</option>
+                            <option value="TNI_POLRI">TNI / Polisi</option>
+                            <option value="GURU_DOSEN">Guru / Dosen</option>
+                            <option value="SWASTA">Pegawai Swasta</option>
+                            <option value="WIRASWASTA">Wiraswasta</option>
+                            <option value="HUKUM">Pengacara / Jaksa / Hakim / Notaris</option>
+                            <option value="SENIMAN">Seniman / Pelukis / Artis / Sejenis</option>
+                            <option value="MEDIS">Dokter / Bidan / Perawat</option>
+                            <option value="PILOT_PRAMUGARA">Pilot / Pramugara</option>
+                            <option value="PEDAGANG">Pedagang</option>
+                            <option value="PETANI_PETERNAK">Petani / Peternak</option>
+                            <option value="NELAYAN">Nelayan</option>
+                            <option value="BURUH">Buruh (Tani / Pabrik / Bangunan)</option>
+                            <option value="TRANSPORTASI">Sopir / Masinis / Kondektur</option>
+                            <option value="POLITIKUS">Politikus</option>
                             <option value="LAINNYA">Lainnya</option>
                         </select>
                     </div>
@@ -947,11 +1155,17 @@
                         <label>Penghasilan per Bulan</label>
                         <select name="penghasilan_wali" data-required-wali="true">
                             <option value="">Pilih...</option>
-                            <option value="<1jt">Kurang dari 1 Juta</option>
-                            <option value="1-3jt">1 - 3 Juta</option>
-                            <option value="3-5jt">3 - 5 Juta</option>
-                            <option value="5-10jt">5 - 10 Juta</option>
-                            <option value=">10jt">Lebih dari 10 Juta</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Dibawah 800.000">Dibawah 800.000</option>
+                            <option value="800.001 - 1.200.000">800.001 - 1.200.000</option>
+                            <option value="1.200.001 - 1.800.000">1.200.001 - 1.800.000</option>
+                            <option value="1.800.001 - 2.500.000">1.800.001 - 2.500.000</option>
+                            <option value="2.500.001 - 3.500.000">2.500.001 - 3.500.000</option>
+                            <option value="3.500.001 - 4.800.000">3.500.001 - 4.800.000</option>
+                            <option value="4.800.001 - 6.500.000">4.800.001 - 6.500.000</option>
+                            <option value="6.500.001 - 10.000.000">6.500.001 - 10.000.000</option>
+                            <option value="10.000.001 - 20.000.000">10.000.001 - 20.000.000</option>
+                            <option value="Diatas 20.000.001">Diatas 20.000.001</option>
                         </select>
                     </div>
 
@@ -1171,6 +1385,70 @@
                 }, 300);
             }
         }
+
+        function initDateSelectors() {
+            const containers = document.querySelectorAll('.date-select-group');
+            const months = [
+                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+
+            containers.forEach(container => {
+                const selTgl = container.querySelector('.sel-tgl');
+                const selBln = container.querySelector('.sel-bln');
+                const selThn = container.querySelector('.sel-thn');
+                const hiddenInput = container.querySelector('input[type="hidden"]');
+
+                // Fill Days
+                for (let i = 1; i <= 31; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i.toString().padStart(2, '0');
+                    opt.innerText = i;
+                    selTgl.appendChild(opt);
+                }
+
+                // Fill Months
+                months.forEach((m, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = (idx + 1).toString().padStart(2, '0');
+                    opt.innerText = m;
+                    selBln.appendChild(opt);
+                });
+
+                // Fill Years
+                const currentYear = new Date().getFullYear();
+                const isStudent = container.dataset.dateField === 'tgl_lahir';
+                const startYear = isStudent ? currentYear - 4 : currentYear - 15;
+                const endYear = isStudent ? currentYear - 15 : currentYear - 75;
+
+                // Sort years descending (newest first)
+                const years = [];
+                for (let i = startYear; i >= endYear; i--) years.push(i);
+
+                years.forEach(y => {
+                    const opt = document.createElement('option');
+                    opt.value = y.toString();
+                    opt.innerText = y;
+                    selThn.appendChild(opt);
+                });
+
+                // Update hidden input on change
+                const updateValue = () => {
+                    if (selTgl.value && selBln.value && selThn.value) {
+                        hiddenInput.value = `${selThn.value}-${selBln.value}-${selTgl.value}`;
+                    } else {
+                        hiddenInput.value = "";
+                    }
+                };
+
+                selTgl.addEventListener('change', updateValue);
+                selBln.addEventListener('change', updateValue);
+                selThn.addEventListener('change', updateValue);
+            });
+        }
+
+        // Call initialization
+        initDateSelectors();
 
         function prevStep() {
             const allStepIds = getAllSteps();

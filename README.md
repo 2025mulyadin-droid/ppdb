@@ -83,6 +83,36 @@ function intialSetup() {
   scriptProp.setProperty('key', activeSpreadsheet.getId());
 }
 
+function doGet(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
+    var sheet = doc.getSheetByName(sheetName);
+    var data = sheet.getDataRange().getValues();
+    var headers = data[0];
+    var rows = [];
+
+    for (var i = 1; i < data.length; i++) {
+      var row = {};
+      for (var j = 0; j < headers.length; j++) {
+        row[headers[j]] = data[i][j];
+      }
+      rows.push(row);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify(rows))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (e) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
@@ -106,15 +136,11 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
       .setMimeType(ContentService.MimeType.JSON);
-  }
-
-  catch (e) {
+  } catch (e) {
     return ContentService
-      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
+      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
-  }
-
-  finally {
+  } finally {
     lock.releaseLock();
   }
 }
@@ -129,11 +155,17 @@ function doPost(e) {
    - Who has access: **Anyone** (Ini penting agar form HTML bisa mengirim data).
 10. Klik **Deploy**, copy **Web App URL**.
 
-### 3. Update File `index.html`
-Buka file `index.html` di project ini.
+### 3. Halaman Admin (Rekapitulasi)
+File `rekap.html` digunakan untuk melihat data pendaftar.
+1. Buka `rekap.html` di browser.
+2. Masukkan password: `bismilah`
+3. Anda bisa mencari data, melihat statistik, dan mencetak laporan ke PDF.
+
+### 4. Update File Sumber
+Buka file `index.html` dan `rekap.html`.
 Cari baris:
-`const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';`
-Ganti dengan URL yang Anda copy dari langkah deploy tadi.
+`const SCRIPT_URL = 'https://script.google.com/macros/s/.../exec';`
+Ganti dengan URL Web App Anda sendiri jika Anda melakukan deploy ulang.
 
 ---
 Dikembangkan untuk MI Islamadina.
