@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PPDB MI ISLAMADINA 2026–2027</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0F766E;
+            --primary-light: #14B8A6;
+            --secondary: #0D9488;
+            --accent: #F59E0B;
+            --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --error: #ef4444;
+            --success: #10b981;
+            --transition-speed: 0.4s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background shapes */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .shape-1 { background: var(--primary-light); width: 300px; height: 300px; top: -50px; left: -50px; animation: float 10s infinite alternate; }
+        .shape-2 { background: var(--accent); width: 250px; height: 250px; bottom: -50px; right: -50px; animation: float 12s infinite alternate-reverse; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
+        }
+
+        /* Container & Glassmorphism */
+        .app-container {
+            width: 100%;
+            max-width: 500px;
+            min-height: 100vh; 
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 501px) {
+            .app-container {
+                min-height: 85vh;
+                height: auto;
+                border-radius: 24px;
+                border: 1px solid var(--glass-border);
+                margin: 20px;
+                overflow: hidden;
+            }
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(0,0,0,0.05);
+            z-index: 100;
+            display: none; /* Shown after welcome */
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Typography */
+        h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; text-align: center; }
+        h2 { font-size: 1.25rem; font-weight: 600; color: var(--text-main); margin-bottom: 1.5rem; }
+        p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Forms */
+        .form-content {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            /* Hide scrollbar */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        .form-content::-webkit-scrollbar { display: none; }
+
+        .form-group { margin-bottom: 1.25rem; opacity: 1; transition: all 0.3s; }
+        .form-group.hidden { display: none; }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            color: var(--text-main);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
+            background: white;
+        }
+
+        /* Radio Cards */
+        .radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .radio-card {
+            flex: 1;
+            min-width: 120px;
+            position: relative;
+        }
+        .radio-card input {
+            position: absolute;
+            opacity: 0;
+        }
+        .radio-card-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            height: 100%;
+            background: rgba(255,255,255,0.5);
+        }
+        .radio-card-label span { margin-top: 8px; font-weight: 500; font-size: 0.9rem; }
+        .radio-card input:checked + .radio-card-label {
+            border-color: var(--primary);
+            background: rgba(20, 184, 166, 0.1);
+            color: var(--primary);
+        }
+
+        /* Buttons */
+        .btn-container {
+            padding: 2rem;
+            display: flex;
+            gap: 1rem;
+            background: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0));
+            z-index: 10;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition:transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+        }
+        .btn-secondary {
+            background: #f3f4f6;
+            color: var(--text-muted);
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        /* Step Transitions */
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .step.active { display: block; }
+        .step.exiting { animation: fadeOut 0.3s ease forwards; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Validation Error */
+        .error-msg {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .input-error { border-color: var(--error) !important; animation: shake 0.3s; }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Welcome Screen Specifics */
+        .welcome-content {
+            text-align: center;
+            display: flex;
+            flex-direction: columns;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 2rem;
+        }
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4);
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.9);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e5e7eb;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="app-container">
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar-container" id="progressBarContainer">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+
+        <!-- Form HTML -->
+        <form id="ppdbForm" onsubmit="event.preventDefault()">
+            
+            <!-- STEP 0: WELCOME -->
+            <div class="step active" id="step-0">
+                <div class="welcome-content">
+                    <div class="logo-placeholder">MI</div>
+                    <h1>PENERIMAAN PESERTA DIDIK BARU</h1>
+                    <h2 style="color:var(--primary-light); margin-bottom: 0.5rem;">MI ISLAMADINA</h2>
+                    <p style="margin-bottom: 2rem; font-weight: 500;">TAHUN AJARAN 2026–2027</p>
+                    
+                    <p class="subtitle">
+                        Mohon mempersiapkan data diri (Kartu Keluarga & Akta Kelahiran) sebelum mengisi formulir ini.
+                        Pastikan data diisi dengan benar.
+                    </p>
+
+                    <button type="button" class="btn btn-primary" onclick="nextStep()" style="width: 100%;">
+                        MULAI DAFTAR ➜
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 1: IDENTITAS SISWA -->
+            <div class="step" id="step-1">
+                <div class="form-content">
+                    <h2>Identitas Siswa</h2>
+                    
+                    <div class="form-group">
+                        <label>Nama Lengkap (Sesuai Akta)</label>
+                        <input type="text" name="nama_lengkap" placeholder="CONTOH: AHMAD FAUZAN" oninput="this.value = this.value.toUpperCase()" required>
+                        <span class="error-msg">Wajib diisi</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>NIK (16 Digit)</label>
+                        <input type="number" name="nik_siswa" placeholder="16 digit angka" required pattern="\d{16}">
+                        <span class="error-msg">Harus 16 digit angka</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>No. Kartu Keluarga (16 Digit)</label>
+                        <input type="number" name="no_kk" placeholder="16 digit angka" required pattern="\d{16}">
+                        <span class="error-msg">Harus 16 digit angka</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: DATA KELAHIRAN -->
+            <div class="step" id="step-2">
+                <div class="form-content">
+                    <h2>Data Kelahiran</h2>
+                    
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" placeholder="KOTA KELAHIRAN" oninput="this.value = this.value.toUpperCase()" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" name="tgl_lahir" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <div class="radio-group">
+                            <label class="radio-card">
+                                <input type="radio" name="jenis_kelamin" value="L" required>
+                                <div class="radio-card-label">Laki-laki</div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="jenis_kelamin" value="P" required>
+                                <div class="radio-card-label">Perempuan</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asal Sekolah (Pra Sekolah)</label>
+                        <select name="asal_sekolah" onchange="checkOtherSchool(this)" required>
+                            <option value="">Pilih...</option>
+                            <option value="TK">TK / RA</option>
+                            <option value="PAUD">PAUD / KB</option>
+                            <option value="LAINNYA">Lainnya</option>
+                        </select>
+                        <input type="text" id="sekolah_lainnya" name="asal_sekolah_lainnya" placeholder="Sebutkan..." class="hidden" style="margin-top:8px;">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: DATA SAUDARA -->
+            <div class="step" id="step-3">
+                <div class="form-content">
+                    <h2>Data Saudara</h2>
+                    
+                    <div class="form-group">
+                        <label>Anak Ke- (Angka)</label>
+                        <input type="number" name="anak_ke" placeholder="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Saudara Kandung</label>
+                        <input type="number" name="jml_sdr_kandung" placeholder="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Saudara Tiri</label>
+                        <input type="number" name="jml_sdr_tiri" placeholder="0" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Saudara Angkat</label>
+                        <input type="number" name="jml_sdr_angkat" placeholder="0" value="0">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 4: FISIK & MINAT -->
+            <div class="step" id="step-4">
+                <div class="form-content">
+                    <h2>Fisik & Minat</h2>
+                    
+                    <div class="form-group">
+                        <label>Bahasa Sehari-hari</label>
+                        <div class="radio-group">
+                            <label class="radio-card">
+                                <input type="radio" name="bahasa" value="INDONESIA" required>
+                                <div class="radio-card-label">Indonesia</div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="bahasa" value="SUNDA">
+                                <div class="radio-card-label">Sunda</div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="bahasa" value="LAINNYA">
+                                <div class="radio-card-label">Lainnya</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Berat (kg)</label>
+                            <input type="number" name="berat_badan" placeholder="e.g 20" required>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Tinggi (cm)</label>
+                            <input type="number" name="tinggi_badan" placeholder="e.g 110" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hobi</label>
+                        <input type="text" name="hobi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cita-cita</label>
+                        <input type="text" name="cita_cita" required>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 5: PILIHAN ORANG TUA / WALI -->
+            <div class="step" id="step-5">
+                <div class="form-content">
+                    <h2>Data Penanggung Jawab</h2>
+                    <p style="margin-bottom: 20px;">Siapa yang mengisi data ini dan bertanggung jawab atas siswa?</p>
+
+                    <div class="form-group">
+                        <div class="radio-group" style="flex-direction: column;">
+                            <label class="radio-card" style="width: 100%;">
+                                <input type="radio" name="pilihan_ortu_wali" value="ORTU" onchange="setParentMode('ORTU')" required>
+                                <div class="radio-card-label" style="align-items: flex-start; text-align: left;">
+                                    <b>Orang Tua Kandung</b>
+                                    <span style="font-size: 0.8rem; font-weight: 400; margin-top: 4px;">Isi data Ayah dan Ibu. Data Wali dikosongkan.</span>
+                                </div>
+                            </label>
+                            <label class="radio-card" style="width: 100%;">
+                                <input type="radio" name="pilihan_ortu_wali" value="WALI" onchange="setParentMode('WALI')">
+                                <div class="radio-card-label" style="align-items: flex-start; text-align: left;">
+                                    <b>Wali Murid</b>
+                                    <span style="font-size: 0.8rem; font-weight: 400; margin-top: 4px;">Isi data Wali saja. Data Ayah & Ibu boleh dikosongkan.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 6: DATA AYAH -->
+            <div class="step" id="step-ayah-1">
+                <div class="form-content">
+                    <h2>Data Ayah</h2>
+                    
+                    <div class="form-group">
+                        <label>Nama Ayah</label>
+                        <input type="text" name="nama_ayah" data-required-ortu="true" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>NIK Ayah</label>
+                        <input type="number" name="nik_ayah" data-required-ortu="true" pattern="\d{16}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status_ayah" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="HIDUP">Hidup</option>
+                            <option value="MENINGGAL">Meninggal</option>
+                            <option value="CERAI">Bercerai</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir_ayah" data-required-ortu="true" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" name="tgl_lahir_ayah" data-required-ortu="true">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 7: DATA AYAH LANJUTAN -->
+            <div class="step" id="step-ayah-2">
+                <div class="form-content">
+                    <h2>Detail Ayah</h2>
+
+                    <div class="form-group">
+                        <label>Pendidikan Terakhir</label>
+                        <select name="pendidikan_ayah" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="SD">SD / Sederajat</option>
+                            <option value="SMP">SMP / Sederajat</option>
+                            <option value="SMA">SMA / Sederajat</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+                            <option value="LAINNYA">Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Pekerjaan</label>
+                        <select name="pekerjaan_ayah" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="PNS">PNS</option>
+                            <option value="TNI/POLRI">TNI / POLRI</option>
+                            <option value="SWASTA">Karyawan Swasta</option>
+                            <option value="PETANI">Petani / Peternak</option>
+                            <option value="PEDAGANG">Pedagang / Wiraswasta</option>
+                            <option value="BURUH">Buruh</option>
+                            <option value="LAINNYA">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Penghasilan per Bulan</label>
+                        <select name="penghasilan_ayah" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="<1jt">Kurang dari 1 Juta</option>
+                            <option value="1-3jt">1 - 3 Juta</option>
+                            <option value="3-5jt">3 - 5 Juta</option>
+                            <option value="5-10jt">5 - 10 Juta</option>
+                            <option value=">10jt">Lebih dari 10 Juta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>No. HP / WA</label>
+                        <input type="number" name="nohp_ayah" placeholder="08..." data-required-ortu="true">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 8: DATA IBU -->
+            <div class="step" id="step-ibu-1">
+                <div class="form-content">
+                    <h2>Data Ibu</h2>
+                    
+                    <div class="form-group">
+                        <label>Nama Ibu</label>
+                        <input type="text" name="nama_ibu" data-required-ortu="true" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>NIK Ibu</label>
+                        <input type="number" name="nik_ibu" data-required-ortu="true" pattern="\d{16}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status_ibu" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="HIDUP">Hidup</option>
+                            <option value="MENINGGAL">Meninggal</option>
+                            <option value="CERAI">Bercerai</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir_ibu" data-required-ortu="true" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" name="tgl_lahir_ibu" data-required-ortu="true">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 9: DATA IBU LANJUTAN -->
+            <div class="step" id="step-ibu-2">
+                <div class="form-content">
+                    <h2>Detail Ibu</h2>
+
+                    <div class="form-group">
+                        <label>Pendidikan Terakhir</label>
+                        <select name="pendidikan_ibu" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="SD">SD / Sederajat</option>
+                            <option value="SMP">SMP / Sederajat</option>
+                            <option value="SMA">SMA / Sederajat</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="LAINNYA">Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Pekerjaan</label>
+                        <select name="pekerjaan_ibu" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="IRT">Ibu Rumah Tangga</option>
+                            <option value="PNS">PNS</option>
+                            <option value="TNI/POLRI">TNI / POLRI</option>
+                            <option value="SWASTA">Karyawan Swasta</option>
+                            <option value="PETANI">Petani / Peternak</option>
+                            <option value="PEDAGANG">Pedagang / Wiraswasta</option>
+                            <option value="LAINNYA">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Penghasilan per Bulan</label>
+                        <select name="penghasilan_ibu" data-required-ortu="true">
+                            <option value="">Pilih...</option>
+                            <option value="TIDAK_ADA">Tidak Ada</option>
+                            <option value="<1jt">Kurang dari 1 Juta</option>
+                            <option value="1-3jt">1 - 3 Juta</option>
+                            <option value="3-5jt">3 - 5 Juta</option>
+                            <option value=">5jt">Lebih dari 5 Juta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>No. HP / WA</label>
+                        <input type="number" name="nohp_ibu" placeholder="08..." data-required-ortu="true">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 10: DATA WALI -->
+            <div class="step" id="step-wali">
+                <div class="form-content">
+                    <h2>Data Wali</h2>
+                    
+                    <div class="form-group">
+                        <label>Nama Wali</label>
+                        <input type="text" name="nama_wali" data-required-wali="true" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hubungan dengan Siswa</label>
+                        <input type="text" name="hubungan_wali" placeholder="Kakek, Paman, Kakak, dll" data-required-wali="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pekerjaan</label>
+                        <input type="text" name="pekerjaan_wali" data-required-wali="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label>No. HP / WA</label>
+                        <input type="number" name="nohp_wali" data-required-wali="true">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
+                </div>
+            </div>
+
+            <!-- STEP 11: TEMPAT TINGGAL -->
+            <div class="step" id="step-residence">
+                <div class="form-content">
+                    <h2>Tempat Tinggal</h2>
+
+                    <div class="form-group">
+                        <label>Alamat Lengkap</label>
+                        <textarea name="alamat_lengkap" rows="3" placeholder="Nama Jalan, RT/RW, Dusun, Desa..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status Tempat Tinggal</label>
+                        <select name="status_tempat_tinggal" required>
+                            <option value="">Pilih...</option>
+                            <option value="MILIK_SENDIRI">Milik Sendiri</option>
+                            <option value="RUMAH_ORTU">Rumah Orang Tua</option>
+                            <option value="KONTRAK">Kontrak / Sewa</option>
+                            <option value="MENUMPANG">Menumpang</option>
+                            <option value="ASRAMA">Asrama / Pondok</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transportasi ke Sekolah</label>
+                        <select name="transportasi" required>
+                            <option value="">Pilih...</option>
+                            <option value="JALAN_KAKI">Jalan Kaki</option>
+                            <option value="MOTOR">Sepeda Motor</option>
+                            <option value="MOBIL">Mobil Pribadi</option>
+                            <option value="ANGKUTAN">Angkutan Umum</option>
+                            <option value="JEMPUTAN">Jemputan Sekolah</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jarak ke Sekolah</label>
+                        <select name="jarak" required>
+                            <option value="">Pilih...</option>
+                            <option value="<1km">Kurang dari 1 km</option>
+                            <option value="1-3km">1 - 3 km</option>
+                            <option value="3-5km">3 - 5 km</option>
+                            <option value="5-10km">5 - 10 km</option>
+                            <option value=">10km">Lebih dari 10 km</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Waktu Tempuh</label>
+                        <select name="waktu_tempuh" required>
+                            <option value="">Pilih...</option>
+                            <option value="<10m">Kurang dari 10 menit</option>
+                            <option value="10-20m">10 - 20 menit</option>
+                            <option value="20-30m">20 - 30 menit</option>
+                            <option value="30-60m">30 - 60 menit</option>
+                            <option value=">60m">Lebih dari 1 Jam</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                    <button type="submit" class="btn btn-primary" onclick="submitForm()">DAFTAR SEKARANG</button>
+                </div>
+            </div>
+
+            <!-- SUCCESS STATE -->
+            <div class="step" id="step-success">
+                <div class="welcome-content">
+                    <div class="logo-placeholder" style="background: var(--success); font-size: 2.5rem;">✔</div>
+                    <h1 style="color: var(--success)">PENDAFTARAN BERHASIL!</h1>
+                    <p style="margin-bottom: 2rem;">
+                        Terima kasih, data Anda telah kami terima.<br>
+                        Silakan tunggu informasi selanjutnya dari panitia PPDB MI Islamadina.
+                    </p>
+                    <button type="button" class="btn btn-primary" onclick="location.reload()">Daftar Siswa Lain</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p style="margin-top: 1rem; font-weight: 500;">Mengirim Data...</p>
+    </div>
+
+    <script>
+        // CONFIGURATION
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwh8o48bvSiX5-zq2aO_sKpVr9zyJ4dW5TkxLZn9dMT-2-qr4Uf-h_iRGNsN5-PQoiPCA/exec'; // User needs to replace this
+        
+        // Define flow of steps
+        const steps = [
+            'step-0', 
+            'step-1', 
+            'step-2', 
+            'step-3', 
+            'step-4', 
+            'step-5' 
+            // Dynamic steps follow
+        ];
+
+        let parentMode = ''; // 'ORTU' or 'WALI'
+        let currentStepIndex = 0;
+        
+        let dynamicSteps = [];
+
+        function setParentMode(mode) {
+            parentMode = mode;
+            // Rebuild dynamic steps based on choice
+            if (mode === 'ORTU') {
+                dynamicSteps = ['step-ayah-1', 'step-ayah-2', 'step-ibu-1', 'step-ibu-2', 'step-residence'];
+                // Clean Wali Validation
+                toggleValidation('wali', false);
+                toggleValidation('ortu', true);
+            } else {
+                dynamicSteps = ['step-wali', 'step-residence'];
+                // Clean Ortu Validation
+                toggleValidation('ortu', false);
+                toggleValidation('wali', true);
+            }
+        }
+
+        function toggleValidation(type, isRequired) {
+            const inputs = document.querySelectorAll(`[data-required-${type}]`);
+            inputs.forEach(input => {
+                if (isRequired) {
+                    input.setAttribute('required', 'true');
+                } else {
+                    input.removeAttribute('required');
+                    // clear error styles
+                    input.style.borderColor = "#e5e7eb";
+                    const errSpan = input.nextElementSibling;
+                    if(errSpan && errSpan.classList.contains('error-msg')) {
+                        errSpan.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        function getAllSteps() {
+            return [...steps, ...dynamicSteps];
+        }
+
+        function checkOtherSchool(select) {
+            const otherInput = document.getElementById('sekolah_lainnya');
+            if (select.value === 'LAINNYA') {
+                otherInput.classList.remove('hidden');
+                otherInput.setAttribute('required', 'true');
+            } else {
+                otherInput.classList.add('hidden');
+                otherInput.removeAttribute('required');
+            }
+        }
+
+        function nextStep() {
+            const allStepIds = getAllSteps();
+            const currentId = allStepIds[currentStepIndex];
+            const currentEl = document.getElementById(currentId);
+
+            // Special case for logic step 5
+            if (currentId === 'step-5' && !parentMode) {
+                alert("Silakan pilih penanggung jawab (Orang Tua / Wali) terlebih dahulu.");
+                return;
+            }
+
+            // Validate inputs in current step
+            if (currentId !== 'step-0' && currentId !== 'step-finish') {
+                if (!validateStep(currentEl)) {
+                    return;
+                }
+            }
+
+            // Move next
+            if (currentStepIndex < allStepIds.length - 1) {
+                // Animate out
+                currentEl.classList.add('exiting');
+                setTimeout(() => {
+                    currentEl.classList.remove('active', 'exiting');
+                    
+                    currentStepIndex++;
+                    const nextId = allStepIds[currentStepIndex];
+                    const nextEl = document.getElementById(nextId);
+                    
+                    nextEl.classList.add('active');
+                    updateProgressBar();
+                }, 300);
+            }
+        }
+
+        function prevStep() {
+            const allStepIds = getAllSteps();
+            if (currentStepIndex > 0) {
+                const currentEl = document.getElementById(allStepIds[currentStepIndex]);
+                currentEl.classList.remove('active');
+                
+                currentStepIndex--;
+                const prevEl = document.getElementById(allStepIds[currentStepIndex]);
+                prevEl.classList.add('active');
+                updateProgressBar();
+            }
+        }
+
+        function validateStep(stepEl) {
+            let isValid = true;
+            const inputs = stepEl.querySelectorAll('input, select, textarea');
+            
+            inputs.forEach(input => {
+                if (input.hasAttribute('required') && !input.disabled && input.offsetParent !== null) {
+                    if (!input.checkValidity()) {
+                        isValid = false;
+                        showError(input);
+                    } else {
+                        clearError(input);
+                    }
+
+                    // Special Pattern Checks for NIK/KK
+                    if (input.name.includes('nik') || input.name.includes('kk') || input.name.includes('hp')) {
+                         if (input.value && input.value.length < 10 && input.name.includes('hp')) {
+                            // Simple length check for phone
+                            // It's lax but prevents emptiness if typed
+                         }
+                         if ((input.name.includes('nik') || input.name.includes('kk')) && input.value.length !== 16) {
+                             isValid = false;
+                             showError(input, "Harus 16 digit");
+                         }
+                    }
+                }
+            });
+            return isValid;
+        }
+
+        function showError(input, msg) {
+            input.classList.add('input-error');
+            const errSpan = input.parentNode.querySelector('.error-msg');
+            if (errSpan) {
+                errSpan.style.display = 'block';
+                if(msg) errSpan.innerText = msg;
+            } else {
+                // If not exists, maybe create? (Simplified for now - assumes spans exist for criticals)
+                // For radio groups, color the label border
+            }
+        }
+
+        function clearError(input) {
+            input.classList.remove('input-error');
+            const errSpan = input.parentNode.querySelector('.error-msg');
+            if (errSpan) errSpan.style.display = 'none';
+        }
+
+        function updateProgressBar() {
+            const container = document.getElementById('progressBarContainer');
+            const bar = document.getElementById('progressBar');
+            
+            if (currentStepIndex === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            container.style.display = 'block';
+            
+            const total = getAllSteps().length - 1; 
+            // -1 because step-0 doesn't count for progress usually, or we can map it
+            // Let's do simple percentage
+            const percentage = (currentStepIndex / total) * 100;
+            bar.style.width = percentage + '%';
+        }
+
+        function submitForm() {
+            // Final validation of the last step
+            const allStepIds = getAllSteps();
+            const currentId = allStepIds[currentStepIndex];
+            if (!validateStep(document.getElementById(currentId))) return;
+
+            // Submit
+            const form = document.getElementById('ppdbForm');
+            const formData = new FormData(form);
+            
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwh8o48bvSiX5-zq2aO_sKpVr9zyJ4dW5TkxLZn9dMT-2-qr4Uf-h_iRGNsN5-PQoiPCA/exec') { 
+                // Simulation for demo
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    showSuccess();
+                    console.log("Mock Submit: ", Object.fromEntries(formData));
+                    alert("DEMO MODE: Data valid. Replace SCRIPT_URL in source code to connect to Google Sheets.");
+                }, 2000);
+                return;
+            }
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                showSuccess();
+            })
+            .catch(error => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('Terjadi kesalahan! Silakan coba lagi.');
+                console.error('Error!', error.message);
+            });
+        }
+
+        function showSuccess() {
+            // Hide everything, show success
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step-success').classList.add('active');
+            document.getElementById('progressBarContainer').style.display = 'none';
+        }
+
+    </script>
+</body>
+</html>
