@@ -65,7 +65,13 @@ Agar data tersimpan, Anda harus menyiapkan backend Google Apps Script.
    - `pekerjaan_wali`
    - `penghasilan_wali`
    - `nohp_wali`
-   - `alamat_lengkap`
+   - `alamat_jalan`
+   - `rt`
+   - `rw`
+   - `desa`
+   - `kecamatan`
+   - `kabupaten`
+   - `kode_pos`
    - `status_tempat_tinggal`
    - `transportasi`
    - `jarak`
