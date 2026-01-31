@@ -57,8 +57,13 @@ Agar data tersimpan, Anda harus menyiapkan backend Google Apps Script.
    - `penghasilan_ibu`
    - `nohp_ibu`
    - `nama_wali`
+   - `nik_wali`
    - `hubungan_wali`
+   - `tempat_lahir_wali`
+   - `tgl_lahir_wali`
+   - `pendidikan_wali`
    - `pekerjaan_wali`
+   - `penghasilan_wali`
    - `nohp_wali`
    - `alamat_lengkap`
    - `status_tempat_tinggal`

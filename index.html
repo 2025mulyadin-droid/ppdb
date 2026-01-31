@@ -457,7 +457,7 @@
         </div>
 
         <!-- Form HTML -->
-        <form id="ppdbForm" onsubmit="event.preventDefault()">
+        <form id="ppdbForm" onsubmit="return false">
 
             <!-- STEP 0: WELCOME -->
             <div class="step active" id="step-0">
@@ -881,115 +881,172 @@
 
             <!-- STEP 10: DATA WALI -->
             <div class="step" id="step-wali">
-                <div class="form-content">
-                    <h2>Data Wali</h2>
+                <!-- STEP 10: DATA WALI -->
+                <div class="step" id="step-wali">
+                    <div class="form-content">
+                        <h2>Data Wali</h2>
 
-                    <div class="form-group">
-                        <label>Nama Wali</label>
-                        <input type="text" name="nama_wali" data-required-wali="true"
-                            oninput="this.value = this.value.toUpperCase()">
+                        <div class="form-group">
+                            <label>Nama Wali</label>
+                            <input type="text" name="nama_wali" data-required-wali="true"
+                                oninput="this.value = this.value.toUpperCase()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>NIK Wali</label>
+                            <input type="text" inputmode="numeric" name="nik_wali" data-required-wali="true"
+                                pattern="\d{16}" maxlength="16" minlength="16"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hubungan dengan Siswa</label>
+                            <input type="text" name="hubungan_wali" placeholder="Kakek, Paman, Kakak, dll"
+                                data-required-wali="true">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tempat Lahir</label>
+                            <input type="text" name="tempat_lahir_wali" data-required-wali="true"
+                                oninput="this.value = this.value.toUpperCase()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <input type="date" name="tgl_lahir_wali" data-required-wali="true">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Pendidikan Terakhir</label>
+                            <select name="pendidikan_wali" data-required-wali="true">
+                                <option value="">Pilih...</option>
+                                <option value="SD">SD / Sederajat</option>
+                                <option value="SMP">SMP / Sederajat</option>
+                                <option value="SMA">SMA / Sederajat</option>
+                                <option value="D3">D3</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                                <option value="LAINNYA">Lainnya</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Pekerjaan</label>
+                            <select name="pekerjaan_wali" data-required-wali="true">
+                                <option value="">Pilih...</option>
+                                <option value="PNS">PNS</option>
+                                <option value="TNI/POLRI">TNI / POLRI</option>
+                                <option value="SWASTA">Karyawan Swasta</option>
+                                <option value="PETANI">Petani / Peternak</option>
+                                <option value="PEDAGANG">Pedagang / Wiraswasta</option>
+                                <option value="BURUH">Buruh</option>
+                                <option value="LAINNYA">Lainnya</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Penghasilan per Bulan</label>
+                            <select name="penghasilan_wali" data-required-wali="true">
+                                <option value="">Pilih...</option>
+                                <option value="<1jt">Kurang dari 1 Juta</option>
+                                <option value="1-3jt">1 - 3 Juta</option>
+                                <option value="3-5jt">3 - 5 Juta</option>
+                                <option value="5-10jt">5 - 10 Juta</option>
+                                <option value=">10jt">Lebih dari 10 Juta</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No. HP / WA</label>
+                            <input type="tel" inputmode="numeric" name="nohp_wali" data-required-wali="true"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label>Hubungan dengan Siswa</label>
-                        <input type="text" name="hubungan_wali" placeholder="Kakek, Paman, Kakak, dll"
-                            data-required-wali="true">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Pekerjaan</label>
-                        <input type="text" name="pekerjaan_wali" data-required-wali="true">
-                    </div>
-
-                    <div class="form-group">
-                        <label>No. HP / WA</label>
-                        <input type="tel" inputmode="numeric" name="nohp_wali" data-required-wali="true"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                    </div>
-                </div>
-                <div class="btn-container">
-                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
-                    <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
-                </div>
-            </div>
-
-            <!-- STEP 11: TEMPAT TINGGAL -->
-            <div class="step" id="step-residence">
-                <div class="form-content">
-                    <h2>Tempat Tinggal</h2>
-
-                    <div class="form-group">
-                        <label>Alamat Lengkap</label>
-                        <textarea name="alamat_lengkap" rows="3" placeholder="Nama Jalan, RT/RW, Dusun, Desa..."
-                            required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Status Tempat Tinggal</label>
-                        <select name="status_tempat_tinggal" required>
-                            <option value="">Pilih...</option>
-                            <option value="MILIK_SENDIRI">Milik Sendiri</option>
-                            <option value="RUMAH_ORTU">Rumah Orang Tua</option>
-                            <option value="KONTRAK">Kontrak / Sewa</option>
-                            <option value="MENUMPANG">Menumpang</option>
-                            <option value="ASRAMA">Asrama / Pondok</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Transportasi ke Sekolah</label>
-                        <select name="transportasi" required>
-                            <option value="">Pilih...</option>
-                            <option value="JALAN_KAKI">Jalan Kaki</option>
-                            <option value="MOTOR">Sepeda Motor</option>
-                            <option value="MOBIL">Mobil Pribadi</option>
-                            <option value="ANGKUTAN">Angkutan Umum</option>
-                            <option value="JEMPUTAN">Jemputan Sekolah</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Jarak ke Sekolah</label>
-                        <select name="jarak" required>
-                            <option value="">Pilih...</option>
-                            <option value="<1km">Kurang dari 1 km</option>
-                            <option value="1-3km">1 - 3 km</option>
-                            <option value="3-5km">3 - 5 km</option>
-                            <option value="5-10km">5 - 10 km</option>
-                            <option value=">10km">Lebih dari 10 km</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Waktu Tempuh</label>
-                        <select name="waktu_tempuh" required>
-                            <option value="">Pilih...</option>
-                            <option value="<10m">Kurang dari 10 menit</option>
-                            <option value="10-20m">10 - 20 menit</option>
-                            <option value="20-30m">20 - 30 menit</option>
-                            <option value="30-60m">30 - 60 menit</option>
-                            <option value=">60m">Lebih dari 1 Jam</option>
-                        </select>
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">LANJUT</button>
                     </div>
                 </div>
-                <div class="btn-container">
-                    <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
-                    <button type="submit" class="btn btn-primary" onclick="submitForm()">DAFTAR SEKARANG</button>
-                </div>
-            </div>
 
-            <!-- SUCCESS STATE -->
-            <div class="step" id="step-success">
-                <div class="welcome-content">
-                    <div class="logo-placeholder" style="background: var(--success); font-size: 2.5rem;">✔</div>
-                    <h1 style="color: var(--success)">PENDAFTARAN BERHASIL!</h1>
-                    <p style="margin-bottom: 2rem;">
-                        Terima kasih, data Anda telah kami terima.<br>
-                        Silakan tunggu informasi selanjutnya dari panitia PPDB MI Islamadina.
-                    </p>
-                    <button type="button" class="btn btn-primary" onclick="location.reload()">Daftar Siswa Lain</button>
+                <!-- STEP 11: TEMPAT TINGGAL -->
+                <div class="step" id="step-residence">
+                    <div class="form-content">
+                        <h2>Tempat Tinggal</h2>
+
+                        <div class="form-group">
+                            <label>Alamat Lengkap</label>
+                            <textarea name="alamat_lengkap" rows="3" placeholder="Nama Jalan, RT/RW, Dusun, Desa..."
+                                required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status Tempat Tinggal</label>
+                            <select name="status_tempat_tinggal" required>
+                                <option value="">Pilih...</option>
+                                <option value="MILIK_SENDIRI">Milik Sendiri</option>
+                                <option value="RUMAH_ORTU">Rumah Orang Tua</option>
+                                <option value="KONTRAK">Kontrak / Sewa</option>
+                                <option value="MENUMPANG">Menumpang</option>
+                                <option value="ASRAMA">Asrama / Pondok</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Transportasi ke Sekolah</label>
+                            <select name="transportasi" required>
+                                <option value="">Pilih...</option>
+                                <option value="JALAN_KAKI">Jalan Kaki</option>
+                                <option value="MOTOR">Sepeda Motor</option>
+                                <option value="MOBIL">Mobil Pribadi</option>
+                                <option value="ANGKUTAN">Angkutan Umum</option>
+                                <option value="JEMPUTAN">Jemputan Sekolah</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jarak ke Sekolah</label>
+                            <select name="jarak" required>
+                                <option value="">Pilih...</option>
+                                <option value="<1km">Kurang dari 1 km</option>
+                                <option value="1-3km">1 - 3 km</option>
+                                <option value="3-5km">3 - 5 km</option>
+                                <option value="5-10km">5 - 10 km</option>
+                                <option value=">10km">Lebih dari 10 km</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Waktu Tempuh</label>
+                            <select name="waktu_tempuh" required>
+                                <option value="">Pilih...</option>
+                                <option value="<10m">Kurang dari 10 menit</option>
+                                <option value="10-20m">10 - 20 menit</option>
+                                <option value="20-30m">20 - 30 menit</option>
+                                <option value="30-60m">30 - 60 menit</option>
+                                <option value=">60m">Lebih dari 1 Jam</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
+                        <button type="submit" class="btn btn-primary" onclick="submitForm()">DAFTAR SEKARANG</button>
+                    </div>
                 </div>
-            </div>
+
+                <!-- SUCCESS STATE -->
+                <div class="step" id="step-success">
+                    <div class="welcome-content">
+                        <div class="logo-placeholder" style="background: var(--success); font-size: 2.5rem;">✔</div>
+                        <h1 style="color: var(--success)">PENDAFTARAN BERHASIL!</h1>
+                        <p style="margin-bottom: 2rem;">
+                            Terima kasih, data Anda telah kami terima.<br>
+                            Silakan tunggu informasi selanjutnya dari panitia PPDB MI Islamadina.
+                        </p>
+                        <button type="button" class="btn btn-primary" onclick="location.reload()">Daftar Siswa
+                            Lain</button>
+                    </div>
+                </div>
 
         </form>
     </div>
@@ -1002,7 +1059,22 @@
 
     <script>
         // CONFIGURATION
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwh8o48bvSiX5-zq2aO_sKpVr9zyJ4dW5TkxLZn9dMT-2-qr4Uf-h_iRGNsN5-PQoiPCA/exec'; // User needs to replace this
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwh8o48bvSiX5-zq2aO_sKpVr9zyJ4dW5TkxLZn9dMT-2-qr4Uf-h_iRGNsN5-PQoiPCA/exec';
+
+        // Prevent Enter Submit & Navigate instead
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Stop default submit
+                // If not in the last step, try nextStep logic
+                // Check if current focused element is not a textarea (where enter means new line)
+                if (event.target.tagName !== 'TEXTAREA') {
+                    // Optional: You could trigger nextStep() here if you want Enter to behave like "Next"
+                    // but for safety, just blocking it is enough to solve the bug.
+                    // Let's just block unwanted submits.
+                    return false;
+                }
+            }
+        });
 
         // Define flow of steps
         const steps = [
