@@ -1207,25 +1207,25 @@
 
                     <div class="form-group">
                         <label>Desa / Kelurahan</label>
-                        <input type="text" name="desa" placeholder="CONTOH: SUKAMAKMUR" required
+                        <input type="text" name="desa" placeholder="CONTOH: KUNINGAN" required
                             oninput="this.value = this.value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
                         <label>Kecamatan</label>
-                        <input type="text" name="kecamatan" placeholder="CONTOH: CIBINONG" required
+                        <input type="text" name="kecamatan" placeholder="CONTOH: KUNINGAN" required
                             oninput="this.value = this.value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
                         <label>Kabupaten / Kota</label>
-                        <input type="text" name="kabupaten" placeholder="CONTOH: BOGOR" required
+                        <input type="text" name="kabupaten" placeholder="CONTOH: KUNINGAN" required
                             oninput="this.value = this.value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
                         <label>Kode Pos</label>
-                        <input type="text" inputmode="numeric" name="kode_pos" placeholder="16911" required
+                        <input type="text" inputmode="numeric" name="kode_pos" placeholder="45511" required
                             maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
 
@@ -1279,7 +1279,8 @@
                 </div>
                 <div class="btn-container">
                     <button type="button" class="btn btn-secondary" onclick="prevStep()">KEMBALI</button>
-                    <button type="submit" class="btn btn-primary" onclick="submitForm()">DAFTAR SEKARANG</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmitForm" onclick="submitForm()">DAFTAR
+                        SEKARANG</button>
                 </div>
             </div>
 
@@ -1571,27 +1572,34 @@
             const currentId = allStepIds[currentStepIndex];
             if (!validateStep(document.getElementById(currentId))) return;
 
+            // Prevent double click
+            const submitBtn = document.getElementById('btnSubmitForm');
+            submitBtn.disabled = true;
+
             // Submit
             const form = document.getElementById('ppdbForm');
             const formData = new FormData(form);
 
+            // Convert to URLSearchParams for better GAS compatibility
+            const searchParams = new URLSearchParams();
+            for (const pair of formData) {
+                searchParams.append(pair[0], pair[1]);
+            }
+
             // Show loading
             document.getElementById('loadingOverlay').style.display = 'flex';
 
-            /* Demo Mode Removed */
-
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Critical for Google Apps Script redirects
-                body: formData
+                mode: 'no-cors',
+                body: searchParams
             })
-                .then(response => {
-                    // In 'no-cors' mode, we won't get a proper response object,
-                    // but if we reach here, the request was at least sent.
+                .then(() => {
                     document.getElementById('loadingOverlay').style.display = 'none';
                     showSuccess();
                 })
                 .catch(error => {
+                    submitBtn.disabled = false;
                     document.getElementById('loadingOverlay').style.display = 'none';
                     alert('Terjadi kesalahan jaringan! Mohon periksa koneksi Anda.');
                     console.error('Error!', error.message);
